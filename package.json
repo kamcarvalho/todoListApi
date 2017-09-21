@@ -1,0 +1,20 @@
+{
+  "name": "todolistapi",
+  "version": "1.0.0",
+  "description": "CRUD API for todo list",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "Kamila Carvalho",
+  "license": "ISC",
+  "devDependencies": {
+    "body-parser": "^1.18.1",
+    "nodemon": "^1.12.1"
+  },
+  "dependencies": {
+    "express": "^4.15.4",
+    "mongoose": "^4.10.8"
+  }
+}
