@@ -22,17 +22,6 @@ var TaskSchema = new Schema({
       required: 'Task name is required',
       validate: nameValidator
     },
-    Created_date: {
-      type: Date,
-      default: Date.now
-    },
-    status: {
-      type: [{
-        type: String,
-        enum: ['pending', 'ongoing', 'completed']
-      }],
-      default: ['pending']
-    }
 });
 
 TaskSchema.path('name').validate(function (v) {
