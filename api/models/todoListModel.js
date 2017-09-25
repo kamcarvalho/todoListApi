@@ -24,8 +24,4 @@ var TaskSchema = new Schema({
     },
 });
 
-TaskSchema.path('name').validate(function (v) {
-return v.length > 5;
-}, 'Name must not exceed 5 characters');
-
 module.exports = mongoose.model('Tasks', TaskSchema);
