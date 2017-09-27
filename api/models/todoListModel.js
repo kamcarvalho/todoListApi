@@ -22,6 +22,11 @@ var TaskSchema = new Schema({
       required: 'Task name is required',
       validate: nameValidator
     },
+  create_date: {
+    type: Date,
+    default: Date.now,
+    required: 'Date is required'
+  }
 });
 
 module.exports = mongoose.model('Tasks', TaskSchema);
