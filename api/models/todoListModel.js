@@ -3,29 +3,32 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var validate = require('mongoose-validator');
 
-var nameValidator = [
+var titleValidator = [
   validate({
     validator: 'isLength',
     arguments: [3,10],
-    message: 'Name should be between {ARGS[0]} and {ARGS[1]} characters'
-  }),
-  validate({
-    validator: 'isAlphanumeric',
-    passIfEmpty: true,
-    message: 'Name should contain alpha-numeric characters only'
+    message: 'Title should be between {ARGS[0]} and {ARGS[1]} characters'
   })
 ];
 
 var TaskSchema = new Schema({
-  name: {
+  title: {
       type: String,
-      required: 'Task name is required',
-      validate: nameValidator
+      required: 'Task title is required',
+      validate: titleValidator
     },
   create_date: {
     type: Date,
     default: Date.now,
-    required: 'Date is required'
+    required: 'Task date is required'
+  },
+  status: {
+    type: [{
+      type: String,
+      enum: ['pending', 'ongoing', 'completed']
+    }],
+    default:['pending'],
+    required: 'Task status is required'
   }
 });
 
