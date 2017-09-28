@@ -17,6 +17,7 @@ exports.create_a_task = function(req, res) {
   new_task.save(function(err, task) {
     if (err)
       res.send(err);
+      res.status(201);
     res.json(task);
   });
 };

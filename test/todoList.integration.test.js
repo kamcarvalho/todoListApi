@@ -8,18 +8,20 @@ describe('Integration todoList endpoint tests', function() {
     api.get('/tasks').expect(200, done);
   })
 
-  it('Create an user should return 200', function(done) {
+  it('Create a task should return 201', function(done) {
     api.post('/tasks')
     .send({
-      name: 'Buy orange'
+      title: 'Buy orange',
+      create_date: Date.now,
+      status:'pending'
     })
-    .expect(200, done);
+    .expect(201, done);
   })
 
   it('Try to create an invalid user should return 200', function(done) {
     api.post('/tasks')
     .send({
-      name: 'Buy orange juice+*&'
+      title: 'Buy orange juice+*&'
     })
     .expect(200, done);
   })
