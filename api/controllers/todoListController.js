@@ -5,20 +5,25 @@ var mongoose = require('mongoose'),
 
 exports.list_all_tasks = function(req, res) {
   Task.find({}, function(err, task) {
-    if(err)
-      res.send(err),
+    if(err) {
       res.status(400);
-    res.json(task);
+      res.send(err);
+    } else {
+      res.json(task);
+    }
   });
 };
 
 exports.create_a_task = function(req, res) {
   var new_task = new Task(req.body);
   new_task.save(function(err, task) {
-    if (err)
+    if (err) {
+      res.status(400);
       res.send(err);
+    } else {
       res.status(201);
-    res.json(task);
+      res.json(task);
+    }
   });
 };
 

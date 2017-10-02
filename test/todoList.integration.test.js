@@ -13,16 +13,17 @@ describe('Integration todoList endpoint tests', function() {
     .send({
       title: 'Buy orange',
       create_date: Date.now,
-      status:'pending'
+      status:'pending',
+      description: 'buy tomorrow'
     })
     .expect(201, done);
   })
 
-  it('Try to create an invalid user should return 200', function(done) {
+  it('Try to create an invalid user should return 400', function(done) {
     api.post('/tasks')
     .send({
       title: 'Buy orange juice+*&'
     })
-    .expect(200, done);
+    .expect(400, done);
   })
 });
