@@ -46,7 +46,7 @@ var TaskSchema = new Schema({
   },
   description: {
     type: String,
-    required: 'Description task is required',
+    required: 'Task description is required',
     validate: descriptionValidator
   }
 });

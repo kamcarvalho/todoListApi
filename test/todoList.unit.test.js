@@ -11,80 +11,52 @@ var todoListModel = require('../api/models/todoListModel');
 //substituir var por let
 describe('Tests for todoList model', function() {
   it('Create a task should not return errors', async function() {
-    var todoList = new todoListModel({title: 'buy fruits', create_date:'2017-09-28T21:48:49.446Z', status:'ongoing', description: 'task description'});
+    var todoList = new todoListModel({title: 'buy fruits', create_date: moment(), status:'ongoing', description: 'task description'});
 
-    try {
-      await todoList.validate();
-    } catch(err) {
-      throw err;
-    }
-  })
+    return todoList.validate();
+  });
 
-  it.only('should be invalid if title is empty', async function() {
+  it('should be invalid if title is empty', async function() {
     // const todoList = new todoListModel();
-    var todoList = new todoListModel({title: 'asdasdas', create_date:'2017-09-28T21:48:49.446Z', status:'ongoing', description: 'task description'});
+    const todoList = new todoListModel({title: null, create_date: moment(), status:'ongoing', description: 'task description'});
 
-    try {
-      await todoList.validate();
-    } catch(err) {
-      expect(err.errors.title).to.exist;
-    }
-
-    // return todoList.validate().should.be.rejectedWith('Task title is required');
-
-
+    return todoList.validate().should.be.rejectedWith('Task title is required');
   });
 
-  it('Should be invalid if title is bigger than 10 characters', function(done) {
-    var todoList = new todoListModel({title: 'Buy some ap'});
+  it('Should be invalid if title is bigger than 10 characters', function() {
+    var todoList = new todoListModel({title: 'Buy some ap', create_date: moment(), status: 'pending', description: 'I have to fo at'});
 
-    todoList.validate(function(err) {
-      expect(err.errors.title).to.exist;
-      done();
-    });
+    return todoList.validate().should.be.rejectedWith('Title should be between 3 and 10 characters');
   });
 
-  it('Should be invalid if title is smaller than 3 characters', function(done) {
-    var todoList = new todoListModel({title: 'ap'});
+  it('Should be invalid if title is smaller than 3 characters', function() {
+    const todoList = new todoListModel({title: 'ap', create_date: moment(), status: 'pending', description: 'I have to fo at'});
 
-    todoList.validate(function(err) {
-      expect(err.errors.title).to.exist;
-      done();
-    });
+    return todoList.validate().should.be.rejectedWith('Title should be between 3 and 10 characters');
   });
 
-  it('should be invalid if date is empty', function(done) {
-    var todoList = new todoListModel({title: 'buy fruits', create_date: null});
+  it('should be invalid if date is empty', function() {
+    const todoList = new todoListModel({title: 'buy fruits', create_date: null, status: 'pending', description: 'I have to fo at'});
 
-    todoList.validate(function(err) {
-      expect(err.errors.create_date).to.exist;
-      done();
-    });
+    return todoList.validate().should.be.rejectedWith('Task date is required');
   });
 
-  it('should be invalid if status is empty', function(done) {
-    var todoList = new todoListModel({title: 'buy fruits', create_date: moment(), status: null});
+  it('should be invalid if status is empty', function() {
+    const todoList = new todoListModel({title: 'buy fruits', create_date: moment(), status: null, description: 'I have to go at'});
 
-    todoList.validate(function(err) {
-      expect(err.errors.status).to.exist;
-      done();
-    });
+    return todoList.validate().should.be.rejectedWith('Task status is required');
   });
-  it('should be invalid if description is empty', function(done) {
-    var todoList = new todoListModel({title: 'buy fruits', create_date: Date.now(), status: 'pending', description: null});
 
-    todoList.validate(function(err) {
-      expect(err.errors.description).to.exist;
-      done();
-    });
+  it('should be invalid if description is empty', function() {
+    const todoList = new todoListModel({title: 'buy fruits', create_date: Date.now(), status: 'pending', description: null});
+
+    return todoList.validate().should.be.rejectedWith('Task description is required')
   });
-  it('should be invalid if description is bigger than 20 characters', function(done) {
-    todolist = new todoListModel({title: 'buy fruits', create_date: Date.now(), status: 'pending', description: 'I have to go at supermarket'});
 
-    todolist.validate(function(err) {
-      expect(err.errors.description).to.exist;
-      done();
-    });
+  it('should be invalid if description is bigger than 20 characters', function() {
+    const todoList = new todoListModel({title: 'buy fruits', create_date: Date.now(), status: 'pending', description: 'I have to go at supermarket'});
+
+    return todoList.validate().should.be.rejectedWith('Description should be between 1 and 20 characters');
   });
 
   it('should be invalid if status is unknown', function() {
