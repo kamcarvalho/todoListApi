@@ -6,10 +6,11 @@ chai.use(chaiAsPromised);
 const expect = chai.expect;
 const AssertionError = chai.AssertionError;
 const assert = chai.assert;
+const should = chai.should();
 
 var todoListModel = require('../api/models/todoListModel');
 //substituir var por let
-describe('Tests for todoList model', function() {
+describe('Unit tests for todoList model', function() {
   it('Create a task should not return errors', async function() {
     var todoList = new todoListModel({title: 'buy fruits', create_date: moment(), status:'ongoing', description: 'task description'});
 

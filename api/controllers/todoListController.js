@@ -1,9 +1,9 @@
 'use strict';
 
-var mongoose = require('mongoose'),
-  Task = mongoose.model('Tasks');
+const mongoose = require('mongoose');
+const Task = mongoose.model('Tasks');
 
-exports.list_all_tasks = function(req, res) {
+exports.listAllTasks = function(req, res) {
   Task.find({}, function(err, task) {
     if(err) {
       res.status(400);
@@ -14,7 +14,7 @@ exports.list_all_tasks = function(req, res) {
   });
 };
 
-exports.create_a_task = function(req, res) {
+exports.createAtask = function(req, res) {
   var new_task = new Task(req.body);
   new_task.save(function(err, task) {
     if (err) {
@@ -27,29 +27,37 @@ exports.create_a_task = function(req, res) {
   });
 };
 
-exports.read_a_task = function(req, res){
+exports.readAtask = function(req, res){
   Task.findById(req.params.taskId, function(err, task) {
-    if (err)
+    if (err) {
+      res.status(404);
       res.send(err);
-    res.json(task);
+    } else {
+      res.json(task);
+    }
   });
 };
 
-exports.update_a_task = function(req, res) {
+exports.updateAtask = function(req, res) {
   Task.findOneAndUpdate({_id: req.params.taskId}, req.body, {new: true}, function(err, task){
-    if (err)
+    if (err) {
+      res.status(400);
       res.send(err);
-    res.json(task);
+    } else{
+      res.json(task);
+    }
   });
 };
 
-exports.delete_a_task = function(req, res) {
+exports.deleteAtask = function(req, res) {
 
   Task.remove({
     _id: req.params.taskId
   }, function(err, task) {
-    if (err)
+    if (err) {
+      res.status(400);
       res.send(err);
+    }
     res.json({ message: 'Task successfully deleted' });
   });
 };
