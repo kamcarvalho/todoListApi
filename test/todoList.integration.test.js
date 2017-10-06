@@ -78,6 +78,21 @@ describe('Integration tests for todoList API', function(done) {
     });
   });
 
+  it('Remove an inexistent task by id should return 404',  async function() {
+    let task = new Task(
+      {
+        title: "Buy fruits",
+        create_date: moment(),
+        status: "ongoing",
+        description: "I have to go at"
+      });
+
+    task = await task.save();
+
+    return axios.delete(`/task/${task.id}01`)
+      .catch(error => expect(error.response.status).to.equal(404));
+  });
+
   it('Update a task by id should return 200',  async function() {
     let task = new Task(
       {
@@ -101,5 +116,24 @@ describe('Integration tests for todoList API', function(done) {
           expect(response.data).to.have.property('status', 'ongoing');
           expect(response.data).to.have.property('description', 'Book an appointment');
         });
+  });
+
+  it('Update an inexisting task by id should return 404',  async function() {
+    let task = new Task(
+      {
+        title: "Buy apple",
+        create_date: moment(),
+        status: "pending",
+        description: "I have to go at"
+      });
+
+    task = await task.save();
+
+    return axios.put(`/task/${task.id}01`, {
+      title: "Buy juice",
+      create_date: moment(),
+      status: "ongoing",
+      description: "Book an appointment"
+    }).catch(error => expect(error.response.status).to.equal(404));
   });
 });

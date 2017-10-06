@@ -41,7 +41,7 @@ exports.readAtask = function(req, res){
 exports.updateAtask = function(req, res) {
   Task.findOneAndUpdate({_id: req.params.taskId}, req.body, {new: true}, function(err, task){
     if (err) {
-      res.status(400);
+      res.status(404);
       res.send(err);
     } else{
       res.json(task);
@@ -55,9 +55,10 @@ exports.deleteAtask = function(req, res) {
     _id: req.params.taskId
   }, function(err, task) {
     if (err) {
-      res.status(400);
+      res.status(404);
       res.send(err);
+    } else {
+      res.json({ message: 'Task successfully deleted' });
     }
-    res.json({ message: 'Task successfully deleted' });
   });
 };
