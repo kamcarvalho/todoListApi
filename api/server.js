@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
-const Task = require('./api/models/todoListModel');
+const Task = require('./todoList/todoList.model');
 const bodyParser = require('body-parser');
-const routes = require('./api/routes/todoListRoutes');
+const routes = require('./routes.js');
 
 //mongoose instance connection url connection
 mongoose.Promise = global.Promise;

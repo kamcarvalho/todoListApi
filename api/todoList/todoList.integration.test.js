@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const server = require('../server');
-const Task = require('../api/models/todoListModel');
+const Task = require('./todoList.model');
 const moment = require('moment');
 const axios = require('axios');
 const chai = require("chai");

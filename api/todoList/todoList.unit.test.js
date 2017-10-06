@@ -8,8 +8,7 @@ const AssertionError = chai.AssertionError;
 const assert = chai.assert;
 const should = chai.should();
 
-var todoListModel = require('../api/models/todoListModel');
-//substituir var por let
+var todoListModel = require('./todoList.model');
 describe('Unit tests for todoList model', function() {
   it('Create a task should not return errors', async function() {
     var todoList = new todoListModel({title: 'buy fruits', create_date: moment(), status:'ongoing', description: 'task description'});
@@ -18,7 +17,6 @@ describe('Unit tests for todoList model', function() {
   });
 
   it('should be invalid if title is empty', async function() {
-    // const todoList = new todoListModel();
     const todoList = new todoListModel({title: null, create_date: moment(), status:'ongoing', description: 'task description'});
 
     return todoList.validate().should.be.rejectedWith('Task title is required');

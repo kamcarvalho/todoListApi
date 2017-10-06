@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "mocha 'api/**/*.unit.test.js'",
+    "integration": "mocha 'api/**/*.integration.test.js'",
+    "dance": "mocha 'api/**/*.test.js'"
   },
   "author": "Kamila Carvalho",
   "license": "ISC",
